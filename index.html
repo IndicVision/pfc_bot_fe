@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>IndicPFC</title>
+    <title>Chatbot Template</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<!--     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1"></script>
 </head>
 <body>
     <div class="login-page" id="login-page" style="display: none;">
@@ -13,8 +13,21 @@
             <input type="text" id="username" placeholder="Username" required><br>
             <input type="password" id="password" placeholder="Password" required><br>
             <button type="button" onclick="login()">Login</button>
+            <button type="button" onclick="registerPage()">Register</button>
+            <p id="login-error" style="color: red; display: none;">Invalid username or password</p>
+            <p id="login-success" style="color: green; display: none;"></p>
         </form>
-        <p id="login-error" style="color: red; display: none;">Invalid username or password</p>
+    </div>
+    <div class="register-page" id="register-page" style="display: none;">
+        <form id="register-form">
+            <h2>New User</h2>
+            <input type="text" id="register-username" placeholder="Username" required><br>
+            <input type="password" id="register-password" placeholder="Password" required><br>
+            <input type="password" id="confirm-password" placeholder="Confirm Password" required><br>
+            <button type="button" onclick="registerUser()">Register</button>
+            <p id="register-error" style="color: red; display: none;"> </p>
+            <p id="register-success" style="color: green; display: none;"> </p>
+        </form>
     </div>
     <div class="menu" id="menu">
         <img src="images/logo.png" id="menu-icon"> IndicVision PFC Bot
