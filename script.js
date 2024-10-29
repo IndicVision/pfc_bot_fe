@@ -60,7 +60,7 @@ function showInstructions() {
         instructionMsgDiv.classList.add('instruct_msg');
         instructionMsgDiv.innerHTML = `
             <h2 style="text-align: center;">Instructions</h2>
-            <p style="text-indent: 7%">The IndicVision PFC Chatbot is an AI-powered assistant designed to answer questions about data and insights from Power Finance Corporation (PFC) reports spanning 2020-2023. Leveraging retrieval augmented large language models, it provides users with accurate, quick responses on financial, operational, and sectoral metrics within the power sector, including insights into generation, transmission, and trading companies as well as power company performance metrics from Annexures 1 and 2. </p>
+            <p style="text-indent: 20px">The IndicVision PFC Chatbot is an AI-powered assistant designed to answer questions about data and insights from Power Finance Corporation (PFC) reports spanning 2020-2023. Leveraging retrieval augmented large language models, it provides users with accurate, quick responses on financial, operational, and sectoral metrics within the power sector, including insights into generation, transmission, and trading companies as well as power company performance metrics from Annexures 1 and 2. </p>
         `;
         // instructionMsgDiv.innerHTML = `Sorry for the inconvenience but the chatbot is under repair, it will be up and running very soon : )`
         chatBox.appendChild(instructionMsgDiv);
