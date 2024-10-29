@@ -2,8 +2,6 @@ let url = "https://indic-pfc-2b3294c20d4c.herokuapp.com";
 
 const chatBox = document.getElementById('chats');
 
-const validUsername = "indicvision";
-const validPassword = "password123";
 const testing = false;
 const api = true;
 
@@ -27,17 +25,25 @@ function showLoginPage() {
     })
 }
 
-function login() {
+async function login() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const errorMsg = document.getElementById('login-error');
+    const successMsg = document.getElementById('login-success');
     
-    if (username === validUsername && password === validPassword) {
+    loginAuthenticated = await authenticateLogin(username, password);
+
+    if (loginAuthenticated) {
         document.getElementById('login-page').style.display = 'none';
         init()
     } else {
         errorMsg.style.display = 'block'; 
     }
+}
+
+function registerPage() {
+    document.getElementById('login-page').style.display = 'none';
+    document.getElementById('register-page').style.display = 'block';
 }
 
 function init() {
@@ -60,7 +66,7 @@ function showInstructions() {
         instructionMsgDiv.classList.add('instruct_msg');
         instructionMsgDiv.innerHTML = `
             <h2 style="text-align: center;">Instructions</h2>
-            <p style="text-indent: 20px">The IndicVision PFC Chatbot is an AI-powered assistant designed to answer questions about data and insights from Power Finance Corporation (PFC) reports spanning 2020-2023. Leveraging retrieval augmented large language models, it provides users with accurate, quick responses on financial, operational, and sectoral metrics within the power sector, including insights into generation, transmission, and trading companies as well as power company performance metrics from Annexures 1 and 2. </p>
+            <p style="text-indent: 7%">The IndicVision PFC Chatbot is an AI-powered assistant designed to answer questions about data and insights from Power Finance Corporation (PFC) reports spanning 2020-2023. Leveraging retrieval augmented large language models, it provides users with accurate, quick responses on financial, operational, and sectoral metrics within the power sector, including insights into generation, transmission, and trading companies as well as power company performance metrics from Annexures 1 and 2.</p>
         `;
         // instructionMsgDiv.innerHTML = `Sorry for the inconvenience but the chatbot is under repair, it will be up and running very soon : )`
         chatBox.appendChild(instructionMsgDiv);
@@ -107,6 +113,71 @@ async function checkAPIStatus(){
             statusMessageDiv.remove();
         }, 2000)
     }
+}
+
+async function registerUser() {
+    const username = document.getElementById('register-username').value;
+    const password = document.getElementById('register-password').value;
+    const confirm_password = document.getElementById('confirm-password').value;
+    const errorMsg = document.getElementById('register-error');
+    const successMsg = document.getElementById('register-success');
+
+    if (password === confirm_password) {
+        errorMsg.style.display = 'none';
+        await fetch(url+"/register", {
+            method:"POST",
+            headers: {
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password,
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                errorMsg.style.display = 'none';
+                successMsg.style.display = 'block';
+                successMsg.textContent = "User successfully registered";
+                setTimeout(function() {
+                    successMsg.style.display = 'none';
+                    document.getElementById('register-page').style.display = 'none';
+                    showLoginPage();
+                }, 1000);
+            } else {
+                errorMsg.style.display = 'block';
+                errorMsg.textContent = data.error;
+            }
+        })
+
+    } else {
+        errorMsg.style.display = 'block';
+        errorMsg.textContent = "Passwords do not match";
+    }
+}
+
+async function authenticateLogin(username, password) {
+    let authenicated = null;
+    await fetch(url+"/login", {
+        method:"POST",
+        headers: {
+            'Content-Type':'application/json',
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password,
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            authenicated = true;
+        } else {
+            authenicated = false;
+        }
+    })
+    return authenicated;
 }
 
 async function sendMessage() {
