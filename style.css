@@ -14,6 +14,10 @@ body {
     transform: translate(-50%, -50%);
 }
 
+#login-form p {
+    font-size: 15px;
+}
+
 #login-form input {
     background-color: black;
     border: none;
@@ -35,9 +39,45 @@ body {
     color: white;
     border: none;
     cursor: pointer;
+    margin: 5px 0;
 }
 
 #login-form button:hover {
+    background-color: #0056b3;
+}
+
+#register-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#register-form input {
+    background-color: black;
+    border: none;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+#register-form input:focus {
+    outline: none;
+}
+
+#register-form button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #2d2d2d;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 5px 0;
+}
+
+#register-form button:hover {
     background-color: #0056b3;
 }
 
